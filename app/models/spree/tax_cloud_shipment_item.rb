@@ -1,0 +1,22 @@
+require 'builder'
+
+class Spree::TaxCloudShipmentItem < ActiveRecord::Base
+  
+  self.table_name = "tax_cloud_shipment_items"
+  
+  belongs_to :line_item
+  belongs_to :tax_cloud_transaction
+  validates :index, :tic, :sku, :price, :quantity, :presence => true
+  accepts_nested_attributes_for :line_item
+  
+
+  def to_hash
+    {
+      'Index' => index,
+      'TIC' => tic,
+      'ItemID' => sku,
+      'Price' => price.to_s,
+      'Qty' => quantity
+    }
+  end
+end
