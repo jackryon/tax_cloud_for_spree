@@ -139,8 +139,11 @@ module Spree
 
 			def origin_address tax_cloud_transaction
 				stock_location = tax_cloud_transaction.shipment.stock_location
+
+				puts "tax_cloud_transaction is #{tax_cloud_transaction.inspect}"
+
 				unless stock_location
-					raise "Please ensure you have at least one Stock Location with a valid address for your tax origin."
+					raise "Shipment.stock location MISSING for Tax Cloud Transaction: #{tax_cloud_transaction.inspect}"
 				end
 				{
 					'Address1' => stock_location.address1,

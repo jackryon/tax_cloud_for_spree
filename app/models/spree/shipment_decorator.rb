@@ -1,6 +1,4 @@
 Spree::Shipment.class_eval do
-	has_one :tax_cloud_transaction
-
 	# a bit hacky. I need the line items that are only in this 
 	# shipment, not in the entire order, and not the inventory units.
 	# fingers crossed on this one!
