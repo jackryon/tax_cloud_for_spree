@@ -1,7 +1,7 @@
 Deface::Override.new({
 	virtual_path: "spree/admin/products/new",
 	name: "add_tics_to_new_product",
-	insert_bottom: ".row",
+	insert_bottom: "[data-hook='new_product']",
 	text: %q{
 		<div class="alpha four columns">
 			<%= f.field_container :tax_cloud_tic do %>
