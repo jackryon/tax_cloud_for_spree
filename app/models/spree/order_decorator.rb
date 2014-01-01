@@ -20,7 +20,7 @@ Spree::Order.class_eval do
 
 
 	def lookup_tax_cloud    
-		if order.tax_cloud_transaction.nil?
+		if tax_cloud_transaction.nil?
 			tax_cloud_transaction = Spree::TaxCloudTransaction.new
 			tax_cloud_transaction.lookup
 			tax_cloud_adjustment

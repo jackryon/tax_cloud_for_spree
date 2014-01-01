@@ -11,7 +11,7 @@ module Spree
 		validates_presence_of :shipment
 		has_one :adjustment, :as => :originator
 		has_one :order, :through => :shipment
-		has_many :shipment_items, 
+		has_many :cart_items, 
 			:class_name => "TaxCloudShipmentItem", 
 			:dependent => :destroy
 
@@ -100,15 +100,15 @@ module Spree
 
 
 
-		def create_shipment_items
+		def create_cart_items
 			if self.persisted?
-				shipment_items.delete_all
+				cart_items.delete_all
 			end
 			index = 0
 
 			# inventory units for the shipment now, not the entire order!
 			shipment.line_items_strict.each do |line_item|
-				shipment_items.create!({
+				cart_items.create!({
 					:index => (index += 1),
 					:tic => line_item.variant.product.tax_cloud_tic,
 					:sku => line_item.variant.sku.presence || line_item.variant.id,
@@ -119,7 +119,7 @@ module Spree
 
 			end
 
-			shipment_items.create!({
+			cart_items.create!({
 				:index => (index += 1),
 				:tic =>  Spree::Config.taxcloud_shipping_tic,
 				:sku => "SHIPPING",
